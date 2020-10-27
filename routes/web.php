@@ -13,10 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function() {
+    return redirect('/items');
 });
 
-Auth::routes();
+Route::group(['prefix' => 'items'], function() {
+    Route::get('/', 'ItemController@index')->name('items.index');
+    Route::get('/new', 'ItemController@newForm')->name('items.newForm');
+    Route::post('/new', 'ItemController@new')->name('items.new');
+    Route::get('/detail/{item_id}', 'ItemController@detail')->name('items.detail');
+    Route::get('/edit', 'ItemController@editForm')->name('items.editForm');
+    Route::post('/edit', 'ItemController@edit')->name('items.edit');
+    Route::delete('/destroy', 'ItemController@destroy')->name('items.destroy');
+});
 
-Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes(
+    ['register' => false] // 完成時は削除して登録機能無効化
+);
