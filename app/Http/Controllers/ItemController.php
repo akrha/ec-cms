@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Item;
 
 class ItemController extends Controller
 {
-    public function __construct()
+    public function __construct(Item $item)
     {
         $this->middleware('auth');
+        $this->item = $item;
     }
 
     /**
@@ -17,7 +19,12 @@ class ItemController extends Controller
      */
     public function index()
     {
+        $user_id = Auth::id();
+        $items = $this->item->getItemsByUserId($user_id);
 
+        return view('item.list', [
+            'items' => $items
+        ]);
     }
 
     /**
@@ -25,7 +32,6 @@ class ItemController extends Controller
      */
     public function createForm()
     {
-
     }
 
     /**
@@ -33,7 +39,6 @@ class ItemController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -41,7 +46,6 @@ class ItemController extends Controller
      */
     public function detail()
     {
-
     }
 
     /**
@@ -49,7 +53,6 @@ class ItemController extends Controller
      */
     public function updateForm()
     {
-
     }
 
     /**
@@ -57,7 +60,6 @@ class ItemController extends Controller
      */
     public function update()
     {
-
     }
 
     /**
@@ -65,6 +67,5 @@ class ItemController extends Controller
      */
     public function destroy()
     {
-
     }
 }
