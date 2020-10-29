@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Item;
+use App\Http\Requests\CreateItemRequest;
 
 class ItemController extends Controller
 {
@@ -32,13 +33,27 @@ class ItemController extends Controller
      */
     public function createForm()
     {
+        return view('item.create');
     }
 
     /**
      * 新規商品登録実行
      */
-    public function create()
+    public function create(CreateItemRequest $request)
     {
+        $user_id = Auth::id();
+
+        try {
+            $this->item->registerItem(
+                $user_id,
+                $request->name,
+                $request->description,
+                $request->price
+            );
+            return redirect()->route('items.index');
+        } catch (\Throwable $th) {
+            abort('500', '登録失敗！');
+        }
     }
 
     /**

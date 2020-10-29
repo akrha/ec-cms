@@ -22,4 +22,19 @@ class Item extends Model
 
         return $result;
     }
+
+    public function registerItem(
+        int $user_id,
+        string $name,
+        string $description,
+        int $price
+    ) :void {
+        $item = new Item;
+        $item->user_id = $user_id;
+        $item->item_name = $name;
+        $item->description = $description;
+        $item->price = $price;
+
+        $item->save();
+    }
 }
