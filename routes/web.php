@@ -32,7 +32,8 @@ Route::group(['prefix' => 'items'], function () {
         ->name('items.updateForm');
     Route::post('/update', 'ItemController@update')
         ->name('items.update');
-    Route::delete('/destroy', 'ItemController@destroy')
+    Route::post('/destroy/{item_id}', 'ItemController@destroy')
+        ->where(['item_id' => '\d+'])
         ->name('items.destroy');
 });
 

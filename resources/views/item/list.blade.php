@@ -25,6 +25,18 @@
     <p>{{ $item->tag_name }}</p>
     <a href="{{ route('items.detail', ['item_id' => $item->id]) }}">商品詳細</a>
     <a href="{{ route('items.updateForm', ['item_id' => $item->id]) }}">商品編集</a>
+    {!! Form::open(['route' => ['items.destroy', 'item_id' => $item->id], 'id' => 'delete'.$item->id]) !!}
+    {!! Form::button('削除', ['onClick' => 'deleteConfirm('.$item->id.')']) !!}
+    {!! Form::close() !!}
     @endforeach
+
+<script>
+function deleteConfirm(item_id) {
+    var res = confirm('本当に削除しますか？');
+    if (res === true) {
+        document.getElementById('delete'+item_id).submit();
+    } 
+}
+</script>
 </body>
 </html>

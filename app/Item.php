@@ -70,4 +70,15 @@ class Item extends Model
             'price' => $price
         ]);
     }
+
+    public function destroyItem(
+        int $user_id,
+        int $item_id
+    ) :int {
+        return Item::where([
+            'user_id' => $user_id,
+            'id' => $item_id
+        ])
+        ->delete();
+    }
 }

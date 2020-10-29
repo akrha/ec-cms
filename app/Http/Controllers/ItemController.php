@@ -115,7 +115,17 @@ class ItemController extends Controller
     /**
      * 商品削除実行
      */
-    public function destroy()
+    public function destroy(int $item_id)
     {
+        $user_id = Auth::id();
+
+        if ($this->item->destroyItem(
+            $user_id,
+            $item_id
+        )) {
+            return redirect()->route('items.index');
+        } else {
+            abort(404);
+        };
     }
 }
