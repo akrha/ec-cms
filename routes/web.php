@@ -13,18 +13,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function() {
+Route::get('/', function () {
     return redirect('/items');
 });
 
-Route::group(['prefix' => 'items'], function() {
-    Route::get('/', 'ItemController@index')->name('items.index');
-    Route::get('/create', 'ItemController@createForm')->name('items.createForm');
-    Route::post('/create', 'ItemController@create')->name('items.create');
-    Route::get('/detail/{item_id}', 'ItemController@detail')->where(['item_id' => '\d+'])->name('items.detail');
-    Route::get('/edit', 'ItemController@editForm')->name('items.editForm');
-    Route::post('/edit', 'ItemController@edit')->name('items.edit');
-    Route::delete('/destroy', 'ItemController@destroy')->name('items.destroy');
+Route::group(['prefix' => 'items'], function () {
+    Route::get('/', 'ItemController@index')
+        ->name('items.index');
+    Route::get('/create', 'ItemController@createForm')
+        ->name('items.createForm');
+    Route::post('/create', 'ItemController@create')
+        ->name('items.create');
+    Route::get('/detail/{item_id}', 'ItemController@detail')
+        ->where(['item_id' => '\d+'])
+        ->name('items.detail');
+    Route::get('/update/{item_id}', 'ItemController@updateForm')
+        ->where(['item_id' => '\d+'])
+        ->name('items.updateForm');
+    Route::post('/update', 'ItemController@update')
+        ->name('items.update');
+    Route::delete('/destroy', 'ItemController@destroy')
+        ->name('items.destroy');
 });
 
 Auth::routes(

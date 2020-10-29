@@ -52,4 +52,22 @@ class Item extends Model
 
         return $result;
     }
+
+    public function updateItem(
+        int $user_id,
+        int $item_id,
+        string $name,
+        string $description,
+        int $price
+    ) :int {
+        return Item::where([
+            'user_id' => $user_id,
+            'id' => $item_id
+        ])
+        ->update([
+            'item_name' => $name,
+            'description' => $description,
+            'price' => $price
+        ]);
+    }
 }

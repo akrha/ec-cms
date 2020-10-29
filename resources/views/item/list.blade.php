@@ -24,6 +24,7 @@
     タグ(WIP)：
     <p>{{ $item->tag_name }}</p>
     <a href="{{ route('items.detail', ['item_id' => $item->id]) }}">商品詳細</a>
+    <a href="{{ route('items.updateForm', ['item_id' => $item->id]) }}">商品編集</a>
     @endforeach
 </body>
 </html>

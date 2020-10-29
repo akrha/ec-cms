@@ -77,15 +77,39 @@ class ItemController extends Controller
     /**
      * 商品編集フォーム
      */
-    public function updateForm()
+    public function updateForm(int $item_id)
     {
+        $user_id = Auth::id();
+
+        $item = $this->item->getItemDetail($item_id, $user_id);
+
+        if (is_null($item)) {
+            abort('404', 'Item Not found');
+        }
+
+        return view('item.update', [
+            'item' => $item
+        ]);
     }
 
     /**
      * 商品編集実行
      */
-    public function update()
+    public function update(CreateItemRequest $request)
     {
+        $user_id = Auth::id();
+
+        if ($this->item->updateItem(
+            $user_id,
+            $request->item_id,
+            $request->name,
+            $request->description,
+            $request->price
+        )) {
+            return redirect()->route('items.index'); // TODO detailにリダイレクトする
+        } else {
+            abort('404', 'Item Not found');
+        }
     }
 
     /**

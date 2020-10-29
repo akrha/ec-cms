@@ -23,5 +23,6 @@
     <p><img src="{{ $item->photo_url }}" alt=""></p>
     タグ(WIP)：
     <p>{{ $item->tag_name }}</p>
+    <a href="{{ route('items.updateForm', ['item_id' => $item->id]) }}">商品編集</a>
 </body>
 </html>
