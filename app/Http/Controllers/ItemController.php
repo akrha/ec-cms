@@ -59,8 +59,19 @@ class ItemController extends Controller
     /**
      * 商品詳細
      */
-    public function detail()
+    public function detail(int $item_id)
     {
+        $user_id = Auth::id();
+
+        $item = $this->item->getItemDetail($item_id, $user_id);
+
+        if (is_null($item)) {
+            abort('404', 'Item Not found');
+        }
+
+        return view('item.detail', [
+            'item' => $item
+        ]);
     }
 
     /**

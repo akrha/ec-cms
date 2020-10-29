@@ -37,4 +37,19 @@ class Item extends Model
 
         $item->save();
     }
+
+    public function getItemDetail(int $item_id, int $user_id) :?Item
+    {
+        $result = Item::select(
+            'items.*',
+            'tags.name AS tag_name'
+        )
+        ->where('items.user_id', $user_id)
+        ->where('items.id', $item_id)
+        ->leftJoin('item_tags', 'items.id', '=', 'item_tags.item_id')
+        ->join('tags', 'items.user_id', '=', 'tags.user_id')
+        ->first();
+
+        return $result;
+    }
 }
