@@ -37,6 +37,23 @@ Route::group(['prefix' => 'items'], function () {
         ->name('items.destroy');
 });
 
+Route::group(['prefix' => 'tags'], function () {
+    Route::get('/', 'TagController@index')
+        ->name('tags.index');
+    Route::get('/create', 'TagController@createForm')
+        ->name('tags.createForm');
+    Route::post('/create', 'TagController@create')
+        ->name('tags.create');
+    Route::get('/update/{tag_id}', 'TagController@updateForm')
+        ->where(['tag_id' => '\d+'])
+        ->name('tags.updateForm');
+    Route::post('/update', 'TagController@update')
+        ->name('tags.update');
+    Route::post('/destroy/{tag_id}', 'TagController@destroy')
+        ->where(['tag_id' => '\d+'])
+        ->name('tags.destroy');
+});
+
 Auth::routes(
     ['register' => false] // 完成時は削除して登録機能無効化
 );
