@@ -21,9 +21,6 @@
     {!! Form::label('price', '価格') !!}
     {!! Form::number('price', $item->price, ['min' => '0', 'required']) !!}
     <br>
-    タグ
-    WIP
-    <br>
     画像
     WIP
     <br>

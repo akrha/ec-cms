@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use App\ItemTag;
 
 class Item extends Model
 {
@@ -27,7 +28,8 @@ class Item extends Model
         int $user_id,
         string $name,
         string $description,
-        int $price
+        int $price,
+        ?array $tags_selected
     ) :void {
         $item = new Item;
         $item->user_id = $user_id;
@@ -36,13 +38,23 @@ class Item extends Model
         $item->price = $price;
 
         $item->save();
+
+        foreach ($tags_selected as $tag_id) {
+            ItemTag::insert([
+                'user_id' => $user_id,
+                'item_id' => $item->id,
+                'tag_id' => $tag_id
+            ]);
+        }
+
     }
 
     public function getItemDetail(int $item_id, int $user_id) :?Item
     {
         $result = Item::select(
             'items.*',
-            'tags.name AS tag_name'
+            'tags.id AS tag_id',
+            'tags.name AS tag_name' //TODO: タグが複数ある時、1つしかタグが取得されないバグがある。別途タグを取得するように変更する
         )
         ->where('items.user_id', $user_id)
         ->where('items.id', $item_id)

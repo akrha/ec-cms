@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Item;
+use App\Tag;
 use App\Http\Requests\CreateItemRequest;
 
 class ItemController extends Controller
 {
-    public function __construct(Item $item)
-    {
+    public function __construct(
+        Item $item,
+        Tag $tag
+    ) {
         $this->middleware('auth');
         $this->item = $item;
+        $this->tag = $tag;
     }
 
     /**
@@ -33,7 +37,11 @@ class ItemController extends Controller
      */
     public function createForm()
     {
-        return view('item.create');
+        $user_id = Auth::id();
+
+        return view('item.create', [
+            'tags' => $this->tag->getTagsByUserId($user_id),
+        ]);
     }
 
     /**
@@ -48,7 +56,8 @@ class ItemController extends Controller
                 $user_id,
                 $request->name,
                 $request->description,
-                $request->price
+                $request->price,
+                $request->tags_selected
             );
             return redirect()->route('items.index');
         } catch (\Throwable $th) {

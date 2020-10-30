@@ -11,7 +11,15 @@
     {!! Form::number('price', '0', ['min' => '0', 'required']) !!}
     <br>
     タグ
-    WIP
+    <br>
+    @foreach ($tags as $tag)
+    <label>
+    {!! Form::checkbox('tags_selected[]', $tag->id) !!}
+    {!! $tag->name !!}
+    </label>
+    <br>
+    @endforeach
+    <a href="{{ route('tags.createForm') }}">新規タグ</a>
     <br>
     画像
     WIP
