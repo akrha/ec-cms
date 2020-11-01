@@ -25,7 +25,8 @@ class CreateItemRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'price' => 'required|integer'
+            'price' => 'required|integer',
+            'image1' => 'image'
         ];
     }
 }

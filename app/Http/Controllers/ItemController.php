@@ -51,13 +51,21 @@ class ItemController extends Controller
     {
         $user_id = Auth::id();
 
+        $item_image1 = $request->hasFile('image1') ? $request->file('image1')->store('item_images') : null;
+        if ($request->hasFile('image1')) {
+
+            $item_image1 = $request->file('image1')->store('item_images');
+            rename(storage_path('app/' . $item_image1) , public_path() . '/' . $item_image1);
+        }
+
         try {
             $this->item->registerItem(
                 $user_id,
                 $request->name,
                 $request->description,
                 $request->price,
-                $request->tags_selected
+                $request->tags_selected,
+                $item_image1
             );
             return redirect()->route('items.index');
         } catch (\Throwable $th) {

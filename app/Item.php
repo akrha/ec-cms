@@ -29,13 +29,15 @@ class Item extends Model
         string $name,
         string $description,
         int $price,
-        ?array $tags_selected
+        ?array $tags_selected,
+        ?string $item_image1
     ) :void {
         $item = new Item;
         $item->user_id = $user_id;
         $item->item_name = $name;
         $item->description = $description;
         $item->price = $price;
+        $item->photo_url = $item_image1;
 
         $item->save();
 

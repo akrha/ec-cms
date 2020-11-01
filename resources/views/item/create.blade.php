@@ -1,5 +1,5 @@
 商品登録
-{!! Form::open(['route' => 'items.create']) !!}
+{!! Form::open(['route' => 'items.create', 'enctype' => 'multipart/form-data']) !!}
 
     {!! Form::label('name', '商品名') !!}
     {!! Form::text('name', '', ['required']) !!}
@@ -21,8 +21,8 @@
     @endforeach
     <a href="{{ route('tags.createForm') }}">新規タグ</a>
     <br>
-    画像
-    WIP
+    {!! Form::label('image1', '画像') !!}
+    {!! Form::file('image1') !!}
     <br>
     {!! Form::submit('登録する') !!}
 {!! Form::close() !!}
