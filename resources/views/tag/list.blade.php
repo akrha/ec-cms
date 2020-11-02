@@ -5,7 +5,6 @@
 @endsection
 
 @section('body')
-<a href="{{ route('tags.createForm') }}">新規タグ登録</a>
     <h1>タグ一覧</h1>
     @foreach ($tags as $tag)
     <h2>{{ $tag->name }}</h2>
@@ -20,7 +19,7 @@ function deleteConfirm(tag_id) {
     var res = confirm('本当に削除しますか？');
     if (res === true) {
         document.getElementById('delete'+tag_id).submit();
-    } 
+    }
 }
 </script>
 @endsection

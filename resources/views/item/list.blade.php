@@ -4,7 +4,6 @@
 @endsection
 
 @section('body')
-<a href="{{ route('items.createForm') }}">新規商品登録</a>
     <h1>出品中商品一覧</h1>
     @foreach ($items as $item)
     <h2>{{ $item->item_name }}</h2>
