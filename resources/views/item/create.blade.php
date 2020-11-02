@@ -1,4 +1,9 @@
+@extends('common.main')
+@section('title')
 商品登録
+@endsection
+
+@section('body')
 {!! Form::open(['route' => 'items.create', 'enctype' => 'multipart/form-data']) !!}
 
     {!! Form::label('name', '商品名') !!}
@@ -26,3 +31,5 @@
     <br>
     {!! Form::submit('登録する') !!}
 {!! Form::close() !!}
+
+@endsection
