@@ -9,16 +9,16 @@
     </title>
 </head>
 <body>
-<a href="{{ route('items.index') }}">TOP</a>
-<a href="{{ route('items.index') }}">商品一覧</a>
-<a href="{{ route('items.createForm') }}">新規商品登録</a>
-<a href="{{ route('tags.index') }}">タグ一覧</a>
-<a href="{{ route('tags.createForm') }}">新規タグ登録</a>
+<a href="{{ route('items.index') }}">🏠TOP</a>
+<a href="{{ route('items.index') }}">🛍商品一覧</a>
+<a href="{{ route('items.createForm') }}">🆕新規商品登録</a>
+<a href="{{ route('tags.index') }}">🏷タグ一覧</a>
+<a href="{{ route('tags.createForm') }}">🔖新規タグ登録</a>
 @if (Auth::id())
 <a class="dropdown-item" href="{{ route('logout') }}"
     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
-    {{ __('Logout') }}
+    {{ __('🔐ログアウト') }}
 </a>
 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
     @csrf
