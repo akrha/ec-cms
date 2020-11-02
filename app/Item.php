@@ -4,17 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\ItemTag;
 
 class Item extends Model
 {
     protected $table = 'items';
 
-    public function getItemsByUserId(int $user_id) :?Collection
+    public function getItemsByUserId(int $user_id) :?LengthAwarePaginator
     {
         $result = Item::select('items.*')
         ->where('items.user_id', $user_id)
-        ->get();
+        ->paginate(5);
 
         return $result;
     }
