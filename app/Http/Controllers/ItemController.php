@@ -69,7 +69,7 @@ class ItemController extends Controller
             );
             return redirect()->route('items.index');
         } catch (\Throwable $th) {
-            abort('500', '登録失敗！');
+            abort('500', $th->getMessage());
         }
     }
 

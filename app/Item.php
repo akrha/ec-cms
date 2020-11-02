@@ -18,7 +18,7 @@ class Item extends Model
         )
         ->where('items.user_id', $user_id)
         ->leftJoin('item_tags', 'items.id', '=', 'item_tags.item_id')
-        ->join('tags', 'items.user_id', '=', 'tags.user_id')
+        ->leftJoin('tags', 'items.user_id', '=', 'tags.user_id')
         ->get();
 
         return $result;
@@ -41,14 +41,15 @@ class Item extends Model
 
         $item->save();
 
-        foreach ($tags_selected as $tag_id) {
-            ItemTag::insert([
-                'user_id' => $user_id,
-                'item_id' => $item->id,
-                'tag_id' => $tag_id
-            ]);
+        if (!is_null($tags_selected)){
+            foreach ($tags_selected as $tag_id) {
+                ItemTag::insert([
+                    'user_id' => $user_id,
+                    'item_id' => $item->id,
+                    'tag_id' => $tag_id
+                ]);
+            }
         }
-
     }
 
     public function getItemDetail(int $item_id, int $user_id) :?Item
@@ -61,7 +62,7 @@ class Item extends Model
         ->where('items.user_id', $user_id)
         ->where('items.id', $item_id)
         ->leftJoin('item_tags', 'items.id', '=', 'item_tags.item_id')
-        ->join('tags', 'items.user_id', '=', 'tags.user_id')
+        ->leftJoin('tags', 'items.user_id', '=', 'tags.user_id')
         ->first();
 
         return $result;
