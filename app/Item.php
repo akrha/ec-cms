@@ -12,13 +12,8 @@ class Item extends Model
 
     public function getItemsByUserId(int $user_id) :?Collection
     {
-        $result = Item::select(
-            'items.*',
-            'tags.name AS tag_name'
-        )
+        $result = Item::select('items.*')
         ->where('items.user_id', $user_id)
-        ->leftJoin('item_tags', 'items.id', '=', 'item_tags.item_id')
-        ->leftJoin('tags', 'items.user_id', '=', 'tags.user_id')
         ->get();
 
         return $result;
@@ -41,7 +36,7 @@ class Item extends Model
 
         $item->save();
 
-        if (!is_null($tags_selected)){
+        if (!is_null($tags_selected)) {
             foreach ($tags_selected as $tag_id) {
                 ItemTag::insert([
                     'user_id' => $user_id,
@@ -54,18 +49,12 @@ class Item extends Model
 
     public function getItemDetail(int $item_id, int $user_id) :?Item
     {
-        $result = Item::select(
-            'items.*',
-            'tags.id AS tag_id',
-            'tags.name AS tag_name' //TODO: タグが複数ある時、1つしかタグが取得されないバグがある。別途タグを取得するように変更する
-        )
+        $item = Item::select('items.*')
         ->where('items.user_id', $user_id)
         ->where('items.id', $item_id)
-        ->leftJoin('item_tags', 'items.id', '=', 'item_tags.item_id')
-        ->leftJoin('tags', 'items.user_id', '=', 'tags.user_id')
         ->first();
 
-        return $result;
+        return $item;
     }
 
     public function updateItem(
@@ -95,5 +84,18 @@ class Item extends Model
             'id' => $item_id
         ])
         ->delete();
+    }
+
+    public function getItemTags($item_id) :?Collection
+    {
+        $item_tags = ItemTag::select(
+            'tags.id',
+            'tags.name'
+        )
+        ->leftJoin('tags', 'tags.id', '=', 'item_tags.tag_id')
+        ->where('item_tags.item_id', '=', $item_id)
+        ->get();
+
+        return $item_tags;
     }
 }

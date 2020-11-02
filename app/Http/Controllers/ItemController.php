@@ -86,8 +86,11 @@ class ItemController extends Controller
             abort('404', 'Item Not found');
         }
 
+        $tags = $this->item->getItemTags($item_id);
+
         return view('item.detail', [
-            'item' => $item
+            'item' => $item,
+            'tags' => $tags
         ]);
     }
 

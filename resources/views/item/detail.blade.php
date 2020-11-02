@@ -22,6 +22,11 @@
     画像：
     <p><img src="/{{ $item->photo_url }}" alt=""></p>
     タグ：
+    @if ($tags)
+    @foreach ($tags as $tag)
+    <p>{{ $tag->name }}</p>
+    @endforeach
+    @endif
     <p>{{ $item->tag_name }}</p>
     <a href="{{ route('items.updateForm', ['item_id' => $item->id]) }}">商品編集</a>
     {!! Form::open(['route' => ['items.destroy', 'item_id' => $item->id], 'id' => 'delete'.$item->id]) !!}
