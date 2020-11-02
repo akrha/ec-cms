@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>出品中商品一覧</title>
-</head>
-<body>
-    <a href="{{ route('items.createForm') }}">新規商品登録</a>
+@extends('common.main')
+@section('title')
+出品中商品一覧
+@endsection
+
+@section('body')
+<a href="{{ route('items.createForm') }}">新規商品登録</a>
     <h1>出品中商品一覧</h1>
     @foreach ($items as $item)
     <h2>{{ $item->item_name }}</h2>
@@ -33,8 +30,7 @@ function deleteConfirm(item_id) {
     var res = confirm('本当に削除しますか？');
     if (res === true) {
         document.getElementById('delete'+item_id).submit();
-    } 
+    }
 }
 </script>
-</body>
-</html>
+@endsection
