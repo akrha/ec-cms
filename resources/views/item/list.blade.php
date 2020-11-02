@@ -24,6 +24,7 @@
     {!! Form::button('削除', ['onClick' => 'deleteConfirm('.$item->id.')']) !!}
     {!! Form::close() !!}
     @endforeach
+    {{ $items->links() }}
 
 <script>
 function deleteConfirm(item_id) {
